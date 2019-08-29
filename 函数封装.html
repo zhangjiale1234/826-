@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let kits = {}
+//   6. saveLocalDataArray(key,arr)   将一个数组(arr)以指定的键(key)存储到localStorage里面
+
+// 参数
+
+// key：localStorage里面根据根据key存储的数据
+
+// arr:    要存入localStorage的key里面的数据{id=1,content=a}
+
+
+let arr = [{"id": 1,'content':'a'},{"id": 2,'content':'b'},{"id": 3,'content':'c'},{"id": 4,'content':'d'}]
+kits.saveLocalDataArray = function(key,arr){
+    let json = JSON.stringify(arr)
+    localStorage.setItem(key,json)
+}
+
+
+
+
+// 7. appendDataIntoArray(key,data)  向localStorage里面指定键(key)的数组数据追加一个数据对象（data）
+
+//    参数
+
+//    key：localStorage里面根据根据key存储的数据
+
+//    data:    你要追加到localstorage的数据
+kits.appendDataIntoArray = function(key,data){
+    //
+    let json = localStorage.getItem(key)
+    let arr = JSON.parse(json)
+    arr = arr||[]
+    // console.log(arr) 
+    arr.unshift(data)  
+    // console.log(arr)
+    let jsonStr = JSON.stringify(arr)
+    localStorage.setItem(key,jsonStr)
+}
+
+
+// 8. deleteLocalDataById(key,id)   根据对应的id从localStorage中指定键(key)的数组中删除一条数据
+
+//    参数
+
+//    key：localStorage里面根据根据key存储的数据
+
+//    id:    根据你传入的id，找到localStorage里面的key对应的数据，删除掉
+
+
+
+kits.deleteLocalDataById = function(key,id){
+    let json = localStorage.getItem(key)
+    let arr = JSON.parse(json)
+    arr = arr||[]
+    arr.forEach(function(e,i){
+        console.log(e.id)
+        // console.log(arr)
+        if(e.id == id){
+            arr.splice(i,1)
+        }
+    })
+   let  jsonStr = JSON.stringify(arr)
+   localStorage.setItem(key,jsonStr)
+}
+
+
+
+
+// 9. modifyLocalDataById(key,id,data)  根据id修改localStorage里面的指定键(key)的数组数据
+
+//    参数
+
+//    key：localStorage里面根据根据key存储的数据
+
+//    id:    根据你传入的id，找到localStorage里面的key对应的数据
+
+//    data: 把通过id找到的数据，修改为你传入的data
+
+kits.modifyLocalDataById = function(key,id,data){
+    let json = localStorage.getItem(key)
+    let  arr = JSON.parse(json)
+    arr = arr||[]
+    arr.forEach((e,i)=>{
+        console.log(e.id)
+        if(e.id == id ){
+            arr[i]=data
+        }
+    })
+   let  jsonStr = JSON.stringify(arr)
+    localStorage.getItem(jsonStr)
+    // return arr
+}
+kits.saveLocalDataArray('info',arr)
+// kits.appendDataIntoArray('info',arr)
+kits.appendDataIntoArray('info','{id:5,content=d}')
+// kits.deleteLocalDataById('info',2)
+// kits.modifyLocalDataById('info',2,'{id:3,content:c}')
+</script>
+</html>
